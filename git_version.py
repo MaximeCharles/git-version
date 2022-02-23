@@ -41,7 +41,7 @@ class GitVersion:
         if env.is_prerelease:
             return self.__prerelease_version(latest_tag, latest_version, env, current_version, build_number)
         else:
-            return self.__stable_version(latest_tag, latest_version, env, current_version, build_number)
+            return self.__stable_version(latest_tag, current_version, build_number)
 
     def __prerelease_version(self,
                              tag: Optional[TagReference],
@@ -63,10 +63,8 @@ class GitVersion:
                                   self.__prerelease_tag(env, c),
                                   str(build_number) if build_number is not None else None)
 
-    def __stable_version(self,
-                         tag: Optional[TagReference],
-                         tag_version: semver.VersionInfo,
-                         env: EnvironmentDefinition,
+    @staticmethod
+    def __stable_version(tag: Optional[TagReference],
                          version: semver.VersionInfo,
                          build_number: Optional[int]) -> semver.VersionInfo:
         if tag is None:

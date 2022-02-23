@@ -30,7 +30,6 @@ class GitVersion:
         env = self.definition.get_environment(branch_name)
         latest_tag = self.__find_latest_stable_tag()
         latest_version = self.__find_latest_version(latest_tag)
-        # todo replace by searching if commit have tag -> Remove
         if latest_tag is not None and latest_tag.commit == self.repo.active_branch.commit:
             return latest_version
         current_version: semver.VersionInfo
